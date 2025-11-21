@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Demo</title>
+<style>
+  body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+  form { background: white; padding: 20px; max-width: 400px; margin: auto; border-radius: 10px; }
+  input { width: 100%; padding: 10px; margin: 8px 0; }
+  button { padding: 10px; width: 100%; background: blue; color: white; border: none; }
+  table { margin-top: 20px; width: 100%; border-collapse: collapse; display:none; }
+  th, td { border: 1px solid #999; padding: 8px; text-align: center; }
+  th { background: blue; color: white; }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Data Form</h2>
+
+<form id="dataForm">
+  <input type="text" id="name" placeholder="Name" required>
+  <input type="number" id="age" placeholder="Age" required>
+  <input type="text" id="city" placeholder="City" required>
+  <input type="text" id="hobby" placeholder="Hobby" required>
+  <button type="submit">Add Entry</button>
+</form>
+
+<button id="showData" style="margin-top:20px;">Show All Data</button>
+
+<table id="dataTable">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>City</th>
+      <th>Hobby</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+<script>
+let data = [];
+
+// Preloaded 100 sample entries
+for (let i = 1; i <= 100; i++) {
+  data.push({ name:"Person "+i, age:18+i%30, city:"City "+(i%10+1), hobby:"Hobby "+(i%5+1) });
+}
+
+document.getElementById("dataForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  data.push({
+    name: name.value,
+    age: age.value,
+    city: city.value,
+    hobby: hobby.value
+  });
+  this.reset();
+  alert("Added!");
+});
+
+document.getElementById("showData").addEventListener("click", function(){
+  document.getElementById("dataTable").style.display = "table";
+  let tb = document.getElementById("tableBody");
+  tb.innerHTML = "";
+  data.forEach((item, i)=>{
+    tb.innerHTML += `<tr>
+      <td>${i+1}</td>
+      <td>${item.name}</td>
+      <td>${item.age}</td>
+      <td>${item.city}</td>
+      <td>${item.hobby}</td>
+    </tr>`;
+  });
+});
+</script>
+
+</body>
+</html>
